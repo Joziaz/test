@@ -2,23 +2,25 @@ import { NumbersDontMatch } from "./Exceptions/NumbersDontMatch";
 
 function GetAddensForValue(array: Array<number>, value: number): [number, number] {
     
+    const list =  new Set<number>(array);
+
     for (var i = 0; i < array.length; i++) {
+         
         var number = array[i];
+        const result = value - number;
+        const exist = list.has(result);
 
-        for (var index = 0; index < array.length; index++) {
-            var number2 = array[index];
+        if(!exist)
+            continue;
 
-            if (number + number2 == value) {
-                return [number, number2];
-            }
-
+        return [number, result];
         }
-    }
 
     throw new NumbersDontMatch("Any add of the numbers in the array match with the provided value");
 }
 
-const array = [2,5,8,14,0];
+
+const array = [2, 5, 8, 14, 0];
 
 try {
     let numbers = GetAddensForValue(array, 10);
