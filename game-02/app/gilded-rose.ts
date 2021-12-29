@@ -1,4 +1,4 @@
-import { updateItemQuality } from "./QualityUpdater";
+import { QualityUpdater } from "./QualityUpdaters/QualityUpdaterHandler";
 
 export class Item {
     name: string;
@@ -14,9 +14,11 @@ export class Item {
 
 export class GildedRose {
     items: Array<Item>;
+    qualityUpdater : QualityUpdater
 
-    constructor(items = [] as Array<Item>) {
+    constructor(items = [] as Array<Item>, qualityUpdater: QualityUpdater) {
         this.items = items;
+        this.qualityUpdater = qualityUpdater;
     }
 
     updateQuality() : Item[]{
@@ -24,7 +26,7 @@ export class GildedRose {
         for (let i = 0; i < this.items.length; i++) {
 
             const item = this.items[i];
-            updateItemQuality(item);
+            this.qualityUpdater.updateItem(item);
         }
 
         return this.items;
